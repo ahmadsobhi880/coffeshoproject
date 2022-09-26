@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+
+{% block footer %}
+
+    <section class="container">
+        <h1 class="display-4 text-center mb-4">All Bookings</h1>
+        <div class="row" style="max-height: 80vh; overflow-y: scroll;">
+            <div class="col">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Booked By</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Capacity</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for table in bookings %}
+                        <tr>
+                            <th scope="row">{{table.id}}</th>
+                            <td>
+                                <p>{{table.booked_by.username}}</p>
+                            </td>
+                            <td>
+                                <p>{{table.get_location_display}}</p>
+                            </td>
+                            <td>
+                                <p>{{table.capacity}}</p>
+                            </td>
+                            <td>
+                                <form action="." method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{table.id}}" name="table_id">
+                                    <input type="hidden" value="cancel" name="action">
+                                    <button class="btn btn-warning btn-sm">Unbook</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block content %}
+    <style>
+        p {
+            border-bottom: 6px solid #9f0dc7;
+            background-color: #f6f6f6;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            width: 750px;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #f1f1f1;
+            width: 750px;
+        }
+    </style>
+
+
+    <p><h2>Questions & Answers</h2></p>
+    <br>
+
+    <button class="collapsible">HOW DOES COVID-19 COMPARE TO OTHER PUBLIC HEALTH THREATS?</button>
+    <div class="content">
+        <p>
+            <b>
+                This depends very much on where people live and how old they are, with some parts of the world hit
+                harder
+                than others, and some age groups being affected more, such as older people. However, even in countries
+                where
+                the COVID-19 death rate seems relatively low, the indirect impact on reduced health services, vaccine
+                supply
+                shortages, and reluctance to seek medical treatment for fear of infection is having a drastic impact and
+                putting tens of millions of people at risk – including children and newborns.
+            </b>
+        </p>
+    </div>
+    <button class="collapsible">IS COVID-19 WORSE THAN FLU?</button>
+    <div class="content">
+        <p>
+            <b>
+                COVID-19 has a higher rate of severe disease and mortality in nearly every age group, compared with
+                influenza (flu).
+            </b>
+        </p>
+    </div>
+    <button class="collapsible">HOW EFFECTIVE ARE MASKS AND DO THEY ALSO NEED TO COVER MY NOSE?</button>
+    <div class="content">
+        <p>
+            <b>
+                Mask wearing is a very simple and effective way to reduce transmission and save lives. The degree of
+                protection depends on the type of mask, how well they worn and on other factors such as the behaviour of
+                people wearing them and the behaviour of air droplets in different settings.
+            </b>
+        </p>
+    </div>
+    <button class="collapsible">WHY DO GOVERNMENTS BENEFIT FROM HELPING TO ENSURE OTHER COUNTRIES ACCESS VACCINES?
+    </button>
+    <div class="content">
+
+        <div class="videoWrapper">
+            <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/tT9G-PIrdkM"
+                    width="560"></iframe>
+            <br/>
+        </div>
+
+        <p>
+            <b>
+                Ensuring COVID-19 vaccines reach people in the world’s poorest countries isn’t just about being
+                charitable
+                or acting on a moral imperative; it’s also in the best interest of every country to do so. The pandemic
+                started in Wuhan, China and spread to 180 countries within three months. That means if the virus is
+                circulating in one country, the rest of the world remains at risk.
+            </b>
+        </p>
+    </div>
+    <button class="collapsible">HOW CAN WE TRUST VACCINES THAT HAVE BEEN DEVELOPED SO FAST?</button>
+    <div class="content">
+        <p>
+            <b>
+                COVID-19 vaccines have been developed and produced in record time, but it’s also involved unprecedented
+                levels of funding and global cooperation to tackle a global threat. So far, all approved COVID-19
+                vaccines
+                have undergone large clinical trials with rigorous safety protocols, and without major safety concerns
+                raised.
+            </b>
+        </p>
+    </div>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+
+    <section class="testimonails single-product bordered-section">
+        <div class="testimonails-wrap container">
+            <div class="single-product-block">
+                <br>
+                <legend class="subtitels"><p>Should You Get Vaccinated ?</p></legend>
+                <div class="video-block">
+                    <iframe width="480" height="270"
+                            src="https://www.youtube.com/embed/OC9vnISihKM"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+

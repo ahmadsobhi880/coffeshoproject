@@ -1,0 +1,299 @@
+{% extends "base.html" %}
+
+{% block ExtraCss %}
+<style>
+    /*panel*/
+    .panel {
+        border: none;
+        box-shadow: none;
+    }
+    .panel-heading {
+        border-color: #eff2f7;
+        font-size: 28px;
+        font-weight: 400;
+    }
+    .panel-body{
+        margin: 15px 0px;
+    }
+    
+    .panel-title {
+        color: #2A3542;
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-top: 0;
+        font-family: 'Open Sans', sans-serif;
+    }
+    
+    
+    /*product list*/
+    
+    .prod-cat li a{
+        border-bottom: 1px dashed #d9d9d9;
+    }
+    
+    .prod-cat li a {
+        color: #3b3b3b;
+    }
+    
+    .prod-cat li ul {
+        margin-left: 30px;
+    }
+    
+    .prod-cat li ul li a{
+        border-bottom:none;
+    }
+    .prod-cat li ul li a:hover,.prod-cat li ul li a:focus, .prod-cat li ul li.active a , .prod-cat li a:hover,.prod-cat li a:focus, .prod-cat li a.active{
+        background: none;
+        color: #ff7261;
+    }
+    
+    .pro-lab{
+        margin-right: 20px;
+        font-weight: normal;
+    }
+    
+    .pro-sort {
+        padding-right: 20px;
+        float: left;
+    }
+    
+    .pro-page-list {
+        margin: 5px 0 0 0;
+    }
+    
+    .product-list img{
+        width: 100%;
+        border-radius: 4px 4px 0 0;
+        -webkit-border-radius: 4px 4px 0 0;
+    }
+    
+    .product-list .pro-img-box {
+        position: relative;
+    }
+    .adtocart {
+        background: #fc5959;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        color: #fff;
+        display: inline-block;
+        text-align: center;
+        border: 3px solid #fff;
+        left: 45%;
+        bottom: -25px;
+        position: absolute;
+    }
+    
+    .adtocart i{
+        color: #fff;
+        font-size: 25px;
+        line-height: 42px;
+    }
+    
+    .pro-title {
+        color: #5A5A5A;
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+    
+    .product-list .price {
+        color:#fc5959 ;
+        font-size: 15px;
+    }
+    
+    .pro-img-details {
+        margin-left: -15px;
+    }
+    
+    .pro-img-details img {
+        width: 100%;
+    }
+    
+    .pro-d-title {
+        font-size: 16px;
+        margin-top: 0;
+    }
+    
+    .product_meta {
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+        margin: 15px 0;
+    }
+    
+    .product_meta span {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .product_meta a, .pro-price{
+        color:#fc5959 ;
+    }
+    
+    .pro-price, .amount-old {
+        font-size: 18px;
+        padding: 0 10px;
+    }
+    
+    .amount-old {
+        text-decoration: line-through;
+    }
+    
+    .quantity {
+        width: 120px;
+    }
+    
+    .pro-img-list {
+        margin: 10px 0 0 -15px;
+        width: 100%;
+        display: inline-block;
+    }
+    
+    .pro-img-list a {
+        float: left;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .pro-d-head {
+        font-size: 18px;
+        font-weight: 300;
+    }
+</style>
+{% endblock ExtraCss %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-3">
+        <form action=".">
+            <section class="panel">
+                <div class="panel-body">
+                    <input type="text" placeholder="Search Store" class="form-control" name="query" />
+                </div>
+            </section>
+            <section class="panel">
+                <header class="panel-heading">
+                    Sort By
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <select class="form-control" id="sort-filter" name="sort">
+                        <option value="price_low">Price Low</option>
+                        <option value="price_high">Price High</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+            <section class="panel">
+                <header class="panel-heading">
+                    Price Range
+                </header>
+                <div class="panel-body sliders">
+                    <div id="slider-range" class="slider">
+                        <input type="range" min="1" max="10000" value="0" class="price-slider form-control" name="min_price">
+                    </div>
+                    <div class="slider-info">
+                        <span>Min</span>
+                        <span id="slider-range-amount">$0</span>
+                    </div>
+                </div>
+                <div class="panel-body sliders">
+                    <div id="slider-range" class="slider">
+                        <input type="range" min="1" max="10000" value="10000" class="price-slider form-control" name="max_price">
+                    </div>
+                    <div class="slider-info">
+                        <span>Max</span>
+                        <span id="slider-range-amount">$10000</span>
+                    </div>
+                </div>
+            </section>
+            <section class="panel">
+                <header class="panel-heading">
+                    More Filters
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="age-limit">
+                            <label class="form-check-label" for="age-limit">
+                              Age Limit
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Day</label>
+                        <select class="form-control" name="day">
+                            <option value="all">All</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select class="form-control" name="type">
+                            <option value="-">-</option>
+                            {% for type in coffee_types %}
+                                <option value="{{type}}">{{type}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <button class="btn btn-primary w-100 mb-4" type="submit">Filter</button>
+        </form>
+    </div>
+    <div class="col-md-9">
+        <div class="row product-list">
+            {% for coffee in coffees %}
+                <div class="col-md-4 border p-3 m-2">
+                    <section class="panel">
+                        <div class="pro-img-box">
+                            <img src="{{coffee.get_image_url}}" alt="" />
+                        </div>
+                        
+                        <div class="panel-body text-center">
+                            <h4>
+                                <a href="{{coffee.get_absolute_url}}" class="pro-title">
+                                    {{coffee.name}}
+                                </a>
+                            </h4>
+                            <p class="m-0 text-muted">{{coffee.get_exerpt}}..</p>
+                            <p class="price">${{coffee.price}}</p>
+                        </div>
+                    </section>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let sliders = document.querySelectorAll(".sliders")
+
+    for (let i = 0; i < sliders.length; i++) { 
+        let slider = sliders[i]
+        let priceSlider = slider.querySelector(".price-slider")
+        let sliderRangeDisplay = slider.querySelector("#slider-range-amount")
+
+        priceSlider.addEventListener("change", ()=>{
+            sliderRangeDisplay.innerText = `$${priceSlider.value}`
+        })
+    }
+
+    
+</script>
+{% endblock content %}
+
+
+

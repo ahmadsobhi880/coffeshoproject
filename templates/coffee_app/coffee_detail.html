@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+
+{% block ExtraCss %} 
+{% endblock ExtraCss %}
+
+{% block footer %}
+
+
+    <section class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <strong>
+                                {{coffee.name}}
+                            </strong>
+                        </h3>
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 col-sm-6">
+                                <div class="text-center"><img src="{{coffee.get_image_url}}" class="img-responsive" width="100%"></div>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                <h4>Description</h4>
+                                <p class="text-muted">
+                                    {{coffee.description}}
+                                </p>
+                                <h2 class="mt-5">
+                                    ${{coffee.price}}
+                                </h2>
+                                <form action="{% url 'CartView' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{coffee.id}}">
+                                    <input type="hidden" name="action" value="add">
+                                    <button class="btn btn-dark btn-rounded mr-1" type="submit">
+                                        <i class="fa fa-shopping-cart"></i> Add To Cart
+                                    </button>
+                                </form>
+                                {% comment %} <button class="btn btn-primary">Buy Now</button> {% endcomment %}
+                                <h3 class="box-title mt-5">More Details</h3>
+                                <ul class="list-unstyled">
+                                    <li><strong>Type:</strong> {{coffee.type}}</li>
+                                    <li><strong>Age Limit:</strong> {{coffee.age_limit}}</li>
+                                    <li><strong>Status:</strong> {{coffee.get_status_display}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+
+
+

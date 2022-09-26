@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <script src="https://www.paypal.com/sdk/js?client-id=AfHssuQd-igtuQLQ9VZ73ju2aIcrxWPLv2JZZ7FDBYNzKdn6WX406ln46kIFw6ILZGBLzFL49kgDQOTC&currency=USD"></script>
+
+    <div class="content-section">
+      {% comment %} <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Payment</legend>
+              {{ form|crispy }}
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Pay</button>
+          </div>
+      </form> {% endcomment %}
+      <div id="paypal-button-container"></div>
+    </div>
+
+    <script>
+        paypal.Buttons({
+  
+          // Sets up the transaction when a payment button is clicked
+          createOrder: function(data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: '77.44' // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+                }
+              }]
+            });
+          },
+  
+          // Finalize the transaction after payer approval
+          onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+              // Successful capture! For dev/demo purposes:
+                  console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                  var transaction = orderData.purchase_units[0].payments.captures[0];
+                  alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+  
+              // When ready to go live, remove the alert and show a success message within this page. For example:
+              // var element = document.getElementById('paypal-button-container');
+              // element.innerHTML = '';
+              // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+              // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+          }
+        }).render('#paypal-button-container');
+  
+      </script>
+{% endblock content %}
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensures optimal rendering on mobile devices -->
+  </head>
+
+  <body>
+    <!-- Include the PayPal JavaScript SDK; replace "test" with your own sandbox Business account app client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+    <!-- Set up a container element for the button -->
+    <div id="paypal-button-container"></div>
+
+    <script>
+      paypal.Buttons({
+
+        // Sets up the transaction when a payment button is clicked
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: '77.44' // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+              }
+            }]
+          });
+        },
+
+        // Finalize the transaction after payer approval
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            // Successful capture! For dev/demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+            // When ready to go live, remove the alert and show a success message within this page. For example:
+            // var element = document.getElementById('paypal-button-container');
+            // element.innerHTML = '';
+            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+            // Or go to another URL:  actions.redirect('thank_you.html');
+          });
+        }
+      }).render('#paypal-button-container');
+
+    </script>
+  </body>
+</html>
